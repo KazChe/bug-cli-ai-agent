@@ -55,6 +55,19 @@ cp .env.example .env   # fill in ANTHROPIC_API_KEY
 | `bun run cli` | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`. |
 | `bun run eval` | Runs the live model over the 20-entry messy corpus in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts), compares to expected labels, exits non-zero if agreement falls below 70%. |
 
+#### Input format
+
+The CLI accepts a **JSON array of strings**, where each string is one raw bug report. You can pass any file path or pipe JSON over stdin — the repo ships a 4-entry demo at [tests/fixtures/example-input.json](tests/fixtures/example-input.json) for the "Try it" commands below.
+
+```json
+[
+  "raw bug report text from user 1",
+  "raw bug report text from user 2"
+]
+```
+
+The 20-entry "messy" corpus used by `bun run eval` lives in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts) (TypeScript, includes expected labels for eval) — not directly consumable by the CLI.
+
 #### Try it
 
 A copy-paste checklist a reviewer can run end-to-end. Each step takes <10s; the file-arg run is the best "does this thing actually work" demo.
