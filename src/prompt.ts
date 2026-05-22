@@ -38,7 +38,27 @@ auth (sign-in, sessions, SSO), upload (file ingest, parsing), project_lifecycle 
 - engineering_notes should be a single paragraph of triage hypothesis grounded in the report — not a fix recipe.
 - title is a one-line headline (max 120 chars) phrased as the bug, not as a question.
 - For non-English or partly-non-English messages, classify on substance; do not refuse.
-- Hostile, profane, or shouty messages are still valid reports — extract the signal, ignore the tone.`;
+- Hostile, profane, or shouty messages are still valid reports — extract the signal, ignore the tone.
+
+# CRITICAL: field discipline by classification
+
+The tool's input_schema lists every possible field. You must include ONLY the fields for the classification you choose. The schema permits extras — extras WILL be rejected by downstream validation as drift. Be strict with yourself.
+
+For classification = "actionable_ticket", include exactly these and no others:
+  classification, title, summary, severity, category, extraction_confidence, expected_behavior, observed_behavior, steps_to_reproduce, engineering_notes, missing_information
+
+For classification = "partial_ticket_needs_clarification", include exactly these and no others:
+  classification, title, summary, severity, category, extraction_confidence, expected_behavior, observed_behavior, steps_to_reproduce, engineering_notes, missing_information, clarifying_questions, what_unlocks_actionable
+
+For classification = "too_vague_request_more_info", include exactly these and no others:
+  classification, interpretation, clarifying_questions, (optional) suspected_category
+  Do NOT emit title, summary, severity, observed_behavior, expected_behavior, steps_to_reproduce, missing_information, extraction_confidence, reasoning, suggested_response, suggested_route, what_unlocks_actionable, or engineering_notes.
+
+For classification = "non_bug_support_question", include exactly these and no others:
+  classification, suggested_route, suggested_response, reasoning
+  Do NOT emit title, summary, severity, category, interpretation, clarifying_questions, missing_information, or any actionable_ticket-style fields.
+
+Before calling the tool, mentally check: "are any keys present that don't belong to this classification's list above?" If yes, remove them.`;
 
 // Anthropic prompt caching: rubric (~600 tokens) + tool schema (~600-900 tokens) clears
 // the ~1024-token cache-eligibility floor on Sonnet. 5-minute TTL means a single eval run

@@ -16,6 +16,7 @@
  * agreement, but a hard floor (default 70%) catches the case where something
  * is broken (prompt regression, schema mismatch).
  */
+import { ZodError } from 'zod';
 import { classifyReport, ClassifyError } from '../src/classify';
 import { createRealClient, DEFAULT_MODEL } from '../src/llm-client';
 import { corpus } from '../tests/fixtures/raw-inputs';
@@ -79,13 +80,19 @@ const rows: Row[] = await runWithConcurrency(corpus, CONCURRENCY, async (entry) 
     };
   } catch (e) {
     if (e instanceof ClassifyError) {
+      const detail =
+        e.cause instanceof ZodError
+          ? e.cause.issues
+              .map((i) => `${i.path.join('.') || '<root>'}: ${i.message}`)
+              .join('; ')
+          : '';
       return {
         id: entry.id,
         expected: entry.expectedClass,
         got: 'ERROR' as const,
         agree: false,
         errStage: e.stage,
-        errMsg: e.message,
+        errMsg: detail ? `${e.message} — ${detail}` : e.message,
       };
     }
     return {
@@ -109,7 +116,9 @@ console.log(
 );
 for (const r of rows) {
   const marker = r.agree ? 'ok ' : '   ';
-  const errSuffix = r.errStage ? `  [${r.errStage}: ${r.errMsg}]` : '';
+  const errSuffix = r.errMsg
+    ? `\n       [${r.errStage ?? 'error'}] ${r.errMsg}`
+    : '';
   console.log(
     `${marker}${r.id.padEnd(6)} ${r.expected.padEnd(38)} ${r.got.padEnd(38)} ${r.agree}${errSuffix}`,
   );
