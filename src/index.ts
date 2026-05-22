@@ -9,18 +9,24 @@
  *
  * Requires ANTHROPIC_API_KEY in env (or .env, auto-loaded by Bun).
  */
-import { runCli, CliInputError } from './cli';
-import { createRealClient } from './llm-client';
+import { runCli, CliInputError, resolveInputSource } from './cli';
+import { createRealClient, DEFAULT_MODEL } from './llm-client';
 import { ClassifyError } from './classify';
 
 async function readInput(args: string[]): Promise<string> {
-  if (args.length > 0 && args[0]) {
-    const file = Bun.file(args[0]);
+  const source = resolveInputSource(args, Boolean(process.stdin.isTTY));
+  if (source.kind === 'usage') {
+    process.stderr.write(`No input given.\n\n${source.message}\n`);
+    process.exit(2);
+  }
+  if (source.kind === 'file') {
+    const file = Bun.file(source.path);
     if (!(await file.exists())) {
-      throw new CliInputError(`Input file not found: ${args[0]}`);
+      throw new CliInputError(`Input file not found: ${source.path}`);
     }
     return await file.text();
   }
+  process.stderr.write('Reading from stdin...\n');
   return await Bun.stdin.text();
 }
 
@@ -46,11 +52,31 @@ async function main(): Promise<void> {
   const model = process.env['ANTHROPIC_MODEL'];
   const concurrencyEnv = process.env['CLI_CONCURRENCY'];
   const concurrency = concurrencyEnv ? Number(concurrencyEnv) : undefined;
+  const effectiveModel = model ?? DEFAULT_MODEL;
+  const effectiveConcurrency = concurrency ?? 5;
+
+  // Progress goes to stderr so stdout stays a clean JSON array (pipeable to jq, etc.).
+  const onStart = (total: number) => {
+    if (total === 0) {
+      process.stderr.write('No inputs to classify.\n');
+      return;
+    }
+    process.stderr.write(
+      `Classifying ${total} report${total === 1 ? '' : 's'} against model=${effectiveModel} ` +
+        `(concurrency=${effectiveConcurrency}). Each entry typically takes 3-15s.\n`,
+    );
+  };
+  const onTick = () => {
+    process.stderr.write('.');
+  };
 
   const results = await runCli(raw, client, {
     ...(model ? { model } : {}),
     ...(concurrency ? { concurrency } : {}),
+    onStart,
+    onTick,
   });
+  if (results.length > 0) process.stderr.write(' done.\n');
   process.stdout.write(JSON.stringify(results, null, 2) + '\n');
 }
 

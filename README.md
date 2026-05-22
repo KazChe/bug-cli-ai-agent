@@ -102,6 +102,8 @@ echo '[]' | bun run cli   # empty array → prints "[]", exits 0
 
 **What to look for in the output:**
 
+- A banner + per-entry dots on **stderr** while the batch runs (e.g. `Classifying 4 reports against model=claude-sonnet-4-6 (concurrency=5)...` then `....` then `done.`). Each entry typically takes 3-15s; for 20 entries plan on 30-60s total.
+- The final JSON goes to **stdout** only, so `bun run cli input.json | jq` works cleanly. To suppress the banner entirely, redirect: `bun run cli input.json 2>/dev/null`.
 - Pretty-printed JSON array, one entry per input, in input order.
 - Each entry has a positional `report_id` (`report-0`, `report-1`, …) and an `original_input` echo.
 - Per-entry classification failures show up as `{ "classification": "error", "report_id", "original_input", "error": { "stage", "message" } }` inline — the batch keeps going.

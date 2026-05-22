@@ -6,6 +6,8 @@ import type { ParsedReport } from './schema';
 export interface RunOptions {
   concurrency?: number;
   model?: string;
+  onStart?: (total: number) => void;
+  onTick?: (completed: number, total: number) => void;
 }
 
 export interface ErrorEntry {
@@ -24,6 +26,39 @@ export class CliInputError extends Error {
     super(message);
     this.name = 'CliInputError';
   }
+}
+
+export const USAGE = `Usage:
+  bun run cli <path-to-input.json>
+  cat input.json | bun run cli
+  echo '["raw bug report", "..."]' | bun run cli
+
+Input must be a JSON array of strings. A demo input lives at tests/fixtures/example-input.json`;
+
+export type InputSource =
+  | { kind: 'file'; path: string }
+  | { kind: 'stdin' }
+  | { kind: 'usage'; message: string };
+
+/**
+ * Pure decision function: where should the CLI read input from?
+ *
+ * Extracted from src/index.ts so we can unit-test the source-resolution rules
+ * without touching process.stdin or process.exit. The real entry function in
+ * index.ts calls this and dispatches accordingly.
+ */
+export function resolveInputSource(
+  args: readonly string[],
+  isStdinTty: boolean,
+): InputSource {
+  const firstArg = args[0];
+  if (firstArg !== undefined && firstArg.length > 0) {
+    return { kind: 'file', path: firstArg };
+  }
+  if (isStdinTty) {
+    return { kind: 'usage', message: USAGE };
+  }
+  return { kind: 'stdin' };
 }
 
 export function parseInput(raw: string): string[] {
@@ -77,17 +112,25 @@ export async function runCli(
   options: RunOptions = {},
 ): Promise<OutputEntry[]> {
   const inputs = parseInput(rawInput);
+  const total = inputs.length;
+  options.onStart?.(total);
+
   const concurrency = options.concurrency ?? 5;
+  let completed = 0;
   return runWithConcurrency(inputs, concurrency, async (input, index) => {
     const reportId = `report-${index}`;
     try {
       const result = await classifyReport(reportId, input, client, {
         ...(options.model ? { model: options.model } : {}),
       });
+      completed += 1;
+      options.onTick?.(completed, total);
       return result satisfies OutputEntry;
     } catch (e) {
       const stage = e instanceof ClassifyError ? e.stage : 'unknown';
       const message = e instanceof Error ? e.message : String(e);
+      completed += 1;
+      options.onTick?.(completed, total);
       const entry: ErrorEntry = {
         classification: 'error',
         report_id: reportId,

@@ -5,7 +5,13 @@
  * covered so we know the CLI fails loud on malformed input.
  */
 import { describe, it, expect } from 'vitest';
-import { runCli, parseInput, CliInputError } from '../src/cli';
+import {
+  runCli,
+  parseInput,
+  resolveInputSource,
+  USAGE,
+  CliInputError,
+} from '../src/cli';
 import type {
   AnthropicClient,
   MessagesCreateParams,
@@ -25,6 +31,42 @@ const routingClient = (
     const userMsg = params.messages[0]?.content ?? '';
     return route(userMsg);
   },
+});
+
+describe('resolveInputSource', () => {
+  it('returns {kind: "file"} when a non-empty path arg is given and stdin is a TTY', () => {
+    // Even if stdin happens to be a TTY, an explicit file path wins.
+    expect(resolveInputSource(['input.json'], true)).toEqual({
+      kind: 'file',
+      path: 'input.json',
+    });
+  });
+
+  it('returns {kind: "file"} when a path arg is given and stdin is piped', () => {
+    expect(resolveInputSource(['input.json'], false)).toEqual({
+      kind: 'file',
+      path: 'input.json',
+    });
+  });
+
+  it('returns {kind: "stdin"} when no args and stdin is piped (not a TTY)', () => {
+    expect(resolveInputSource([], false)).toEqual({ kind: 'stdin' });
+  });
+
+  it('returns {kind: "usage"} when no args and stdin is a TTY (terminal, nothing piped)', () => {
+    const result = resolveInputSource([], true);
+    expect(result.kind).toBe('usage');
+    if (result.kind === 'usage') {
+      expect(result.message).toBe(USAGE);
+      expect(result.message).toContain('Usage:');
+      expect(result.message).toContain('bun run cli');
+    }
+  });
+
+  it('treats an empty-string arg as missing and falls back to stdin/usage rules', () => {
+    expect(resolveInputSource([''], false)).toEqual({ kind: 'stdin' });
+    expect(resolveInputSource([''], true).kind).toBe('usage');
+  });
 });
 
 describe('parseInput', () => {
