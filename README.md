@@ -31,3 +31,100 @@ need help? open support with this project URL and error context attached
 Didn't see any reason to change the agent's tone or the way it respondes overall, but I would look inot doing away with its immediate follow ups right after it provides a response, `Is that what you were looking for?` or `Did that answer your question?`. If the idea is to get feedback/training, then I would use a thumbs up/down approach.
 
 ### Part 3: Build Something
+
+A CLI that takes a JSON array of raw bug-report strings and transforms each one into a structured triage output. Crucially, it does **not** force every input into a ticket — each report is classified into one of four buckets, each with its own output shape:
+
+1. `actionable_ticket` — enough context to file directly.
+2. `partial_ticket_needs_clarification` — real bug signal but key facts missing; emits a draft + clarifying questions.
+3. `too_vague_request_more_info` — too thin to draft; emits only clarifying questions.
+4. `non_bug_support_question` — not a bug; routes away from engineering (how-to, billing, feature request, status).
+
+#### Quick start
+
+```bash
+bun install
+cp .env.example .env   # fill in ANTHROPIC_API_KEY
+```
+
+#### Commands
+
+| Command | What it does |
+|---|---|
+| `bun run test` | Runs Vitest suite (56 tests across schema, classifier, CLI). Uses a mocked Anthropic client — no API key, no network. |
+| `bun run typecheck` | `tsc --noEmit` strict-mode pass. |
+| `bun run cli` | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`. |
+| `bun run eval` | Runs the live model over the 20-entry messy corpus in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts), compares to expected labels, exits non-zero if agreement falls below 70%. |
+
+#### Try it
+
+A copy-paste checklist a reviewer can run end-to-end. Each step takes <10s; the file-arg run is the best "does this thing actually work" demo.
+
+**Happy paths** (require `ANTHROPIC_API_KEY` in env or `.env`):
+
+```bash
+# 1. file arg — 4 entries, one per classification
+bun run cli tests/fixtures/example-input.json
+
+# 2. stdin pipe — one entry, should be classified as too_vague
+echo '["upload is broken"]' | bun run cli
+
+# 3. override the model
+ANTHROPIC_MODEL=claude-haiku-4-5 bun run cli tests/fixtures/example-input.json
+```
+
+**Error paths** (should fail loud with exit code 2 and a stderr message — no API call made):
+
+```bash
+echo 'not json' | bun run cli                # invalid JSON
+echo '{"foo":"bar"}' | bun run cli           # not a JSON array
+echo '["ok", 42]' | bun run cli              # array contains a non-string
+( unset ANTHROPIC_API_KEY; echo '[]' | bun run cli )   # missing API key
+```
+
+**Edge case:**
+
+```bash
+echo '[]' | bun run cli   # empty array → prints "[]", exits 0
+```
+
+**What to look for in the output:**
+
+- Pretty-printed JSON array, one entry per input, in input order.
+- Each entry has a positional `report_id` (`report-0`, `report-1`, …) and an `original_input` echo.
+- Per-entry classification failures show up as `{ "classification": "error", "report_id", "original_input", "error": { "stage", "message" } }` inline — the batch keeps going.
+
+#### How it works
+
+**Schema-first.** Every output conforms to a [Zod discriminated union](src/schema.ts) over the four classifications. Each variant is `.strict()`, so unknown keys are rejected — that's what catches LLM drift. Inferred TS types flow downstream so the rest of the code knows exactly which fields exist on which variant.
+
+**Anthropic tool-use with double validation.** [classifyReport](src/classify.ts) sends each report with a forced `tool_choice`. The tool's `input_schema` is a flat object (Anthropic rejects `oneOf`/`anyOf` at the root of tool schemas), so per-variant required-field enforcement happens after the call: `LLMOutputSchema.safeParse(tool_use.input)` first (precise blame on the model), then `ParsedReportSchema.safeParse(merged)` (final contract guarantee after merging in runner-owned `report_id` and `original_input`).
+
+**Prompt design.** The [system prompt](src/prompt.ts) carries the rubric: four classifications with definitions, a severity scale, the category enum, anti-hallucination rules, and explicit per-variant field-discipline lists (each variant's allowed fields with "do NOT emit anything else"). The prompt is marked `cache_control: ephemeral` so Anthropic caches it for ~5 min — every report in a batch after the first benefits.
+
+**Two test surfaces.** Mocked tests run the schema, classifier, and CLI logic against a fake `AnthropicClient` — fast, deterministic, no API key. The live [eval script](scripts/eval.ts) runs the real model over the messy corpus and reports per-entry agreement with a 70% floor. They answer different questions: unit tests answer "is my code correct?"; the eval answers "does the model handle real ugliness?"
+
+#### Project layout
+
+```
+src/
+  schema.ts          # Zod discriminated union + strict variants + inferred types
+  types.ts           # stable re-export surface for downstream imports
+  prompt.ts          # system prompt + cache_control config
+  tool-schema.ts     # flat JSON Schema for the tool; strict per-variant validator
+  llm-client.ts      # AnthropicClient interface + real SDK factory
+  classify.ts        # classifyReport (the LLM orchestrator)
+  cli.ts             # runCli (parse input, concurrent classify, build entries)
+  index.ts           # CLI entry — stdin/argv -> runCli -> stdout
+tests/
+  fixtures/
+    valid-samples.ts # canonical valid object per variant (schema tests)
+    raw-inputs.ts    # 20-entry messy corpus (eval)
+    mock-responses.ts# canned tool_use payloads (unit tests)
+  schema.test.ts
+  classify.test.ts
+  cli.test.ts
+scripts/
+  eval.ts            # live API runner over the corpus
+```
+
+The accompanying writeup walks through the design decisions — what was kept, what was traded off, and what I'd change with more time.
