@@ -1,9 +1,11 @@
 # Support Engineer Challenge
 
-### Recordings
+### Parts 1, 2 and 3 deliverable
 
 - [Part 1: Product Investigation](https://dhbtuus86mod.cloudfront.net/product_investigation.mp4)
+- [Part 1 write-up](part-1-writeup.md)
 - [Part 2: Support Experience](https://dhbtuus86mod.cloudfront.net/part-2-support-experience-audit.mp4)
+- [Part 3 problem interpretation write-up](problem-interpretation.md)
 
 ---
 
@@ -48,22 +50,19 @@ cp .env.example .env   # fill in ANTHROPIC_API_KEY
 
 #### Commands
 
-| Command | What it does |
-|---|---|
-| `bun run test` | Runs Vitest suite (56 tests across schema, classifier, CLI). Uses a mocked Anthropic client — no API key, no network. |
-| `bun run typecheck` | `tsc --noEmit` strict-mode pass. |
-| `bun run cli` | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`. |
-| `bun run eval` | Runs the live model over the 20-entry messy corpus in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts), compares to expected labels, exits non-zero if agreement falls below 70%. |
+| Command             | What it does                                                                                                                                                                                  |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bun run test`      | Runs Vitest suite (56 tests across schema, classifier, CLI). Uses a mocked Anthropic client — no API key, no network.                                                                         |
+| `bun run typecheck` | `tsc --noEmit` strict-mode pass.                                                                                                                                                              |
+| `bun run cli`       | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`.                                                        |
+| `bun run eval`      | Runs the live model over the 20-entry messy corpus in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts), compares to expected labels, exits non-zero if agreement falls below 70%. |
 
 #### Input format
 
 The CLI accepts a **JSON array of strings**, where each string is one raw bug report. You can pass any file path or pipe JSON over stdin — the repo ships a 4-entry demo at [tests/fixtures/example-input.json](tests/fixtures/example-input.json) for the "Try it" commands below.
 
 ```json
-[
-  "raw bug report text from user 1",
-  "raw bug report text from user 2"
-]
+["raw bug report text from user 1", "raw bug report text from user 2"]
 ```
 
 The 20-entry "messy" corpus used by `bun run eval` lives in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts) (TypeScript, includes expected labels for eval) — not directly consumable by the CLI.
@@ -141,5 +140,3 @@ tests/
 scripts/
   eval.ts            # live API runner over the corpus
 ```
-
-The accompanying writeup walks through the design decisions — what was kept, what was traded off, and what I'd change with more time.
