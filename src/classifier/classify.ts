@@ -1,12 +1,12 @@
-import { ParsedReportSchema, type ParsedReport } from './schema';
-import { LLMOutputSchema, llmToolInputJSONSchema } from './tool-schema';
-import { SYSTEM_BLOCKS } from './prompt';
+import { ParsedReportSchema, type ParsedReport } from '../schema/parsed-report';
+import { LLMOutputSchema, llmToolInputJSONSchema } from '../llm/tool-schema';
+import { SYSTEM_BLOCKS } from '../llm/prompt';
 import {
   type AnthropicClient,
   type ToolUseBlock,
   DEFAULT_MODEL,
   DEFAULT_MAX_TOKENS,
-} from './llm-client';
+} from '../llm/client';
 
 export interface ClassifyOptions {
   model?: string;

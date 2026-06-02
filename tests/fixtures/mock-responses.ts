@@ -1,4 +1,4 @@
-import type { MessagesResponse } from '../../src/llm-client';
+import type { MessagesResponse } from '../../src/llm/client';
 
 export const TOOL_NAME = 'classify_bug_report';
 

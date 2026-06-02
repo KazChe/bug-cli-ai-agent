@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ParsedReportSchema } from '../src/schema';
+import { ParsedReportSchema } from '../src/schema/parsed-report';
 import {
   validActionable,
   validPartial,

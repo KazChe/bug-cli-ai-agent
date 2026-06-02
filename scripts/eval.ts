@@ -17,8 +17,8 @@
  * is broken (prompt regression, schema mismatch).
  */
 import { ZodError } from 'zod';
-import { classifyReport, ClassifyError } from '../src/classify';
-import { createRealClient, DEFAULT_MODEL } from '../src/llm-client';
+import { classifyReport, ClassifyError } from '../src/classifier/classify';
+import { createRealClient, DEFAULT_MODEL } from '../src/llm/client';
 import { corpus } from '../tests/fixtures/raw-inputs';
 
 const AGREEMENT_THRESHOLD = 0.7;

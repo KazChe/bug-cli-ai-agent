@@ -15,12 +15,12 @@ import { describe, it, expect } from 'vitest';
 import {
   classifyReport,
   ClassifyError,
-} from '../src/classify';
+} from '../src/classifier/classify';
 import type {
   AnthropicClient,
   MessagesResponse,
   MessagesCreateParams,
-} from '../src/llm-client';
+} from '../src/llm/client';
 import {
   mockResponseFor,
   cannedActionable,

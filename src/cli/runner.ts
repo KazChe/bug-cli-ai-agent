@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { classifyReport, ClassifyError } from './classify';
-import type { AnthropicClient } from './llm-client';
-import type { ParsedReport } from './schema';
+import { classifyReport, ClassifyError } from '../classifier/classify';
+import type { AnthropicClient } from '../llm/client';
+import type { ParsedReport } from '../schema/parsed-report';
 
 export interface RunOptions {
   concurrency?: number;

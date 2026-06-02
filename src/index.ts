@@ -9,9 +9,9 @@
  *
  * Requires ANTHROPIC_API_KEY in env (or .env, auto-loaded by Bun).
  */
-import { runCli, CliInputError, resolveInputSource } from './cli';
-import { createRealClient, DEFAULT_MODEL } from './llm-client';
-import { ClassifyError } from './classify';
+import { runCli, CliInputError, resolveInputSource } from './cli/runner';
+import { createRealClient, DEFAULT_MODEL } from './llm/client';
+import { ClassifyError } from './classifier/classify';
 
 async function readInput(args: string[]): Promise<string> {
   const source = resolveInputSource(args, Boolean(process.stdin.isTTY));

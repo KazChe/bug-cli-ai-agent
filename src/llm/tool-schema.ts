@@ -4,7 +4,7 @@ import {
   PartialTicketSchema,
   TooVagueSchema,
   NonBugSupportSchema,
-} from './schema';
+} from '../schema/parsed-report';
 
 // The LLM never emits report_id or original_input — those are runner-assigned facts.
 // Omitting them from the per-variant schemas reduces hallucination surface and keeps

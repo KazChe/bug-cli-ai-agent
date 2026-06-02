@@ -4,4 +4,4 @@ export type {
   TooVague,
   NonBugSupport,
   ParsedReport,
-} from './schema';
+} from './parsed-report';

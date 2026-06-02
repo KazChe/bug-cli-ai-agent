@@ -11,12 +11,12 @@ import {
   resolveInputSource,
   USAGE,
   CliInputError,
-} from '../src/cli';
+} from '../src/cli/runner';
 import type {
   AnthropicClient,
   MessagesCreateParams,
   MessagesResponse,
-} from '../src/llm-client';
+} from '../src/llm/client';
 import {
   mockResponseFor,
   cannedActionable,

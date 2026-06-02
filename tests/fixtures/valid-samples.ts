@@ -3,7 +3,7 @@ import type {
   PartialTicket,
   TooVague,
   NonBugSupport,
-} from '../../src/types';
+} from '../../src/schema/types';
 
 export const validActionable: ActionableTicket = {
   classification: 'actionable_ticket',
