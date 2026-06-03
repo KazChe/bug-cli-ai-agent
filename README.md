@@ -111,3 +111,9 @@ tests/
 scripts/
   eval.ts                     # live API runner over the corpus
 ```
+
+## Sample eval run
+
+![bun run eval over the 20-entry messy corpus: 17/20 agreement on claude-sonnet-4-6, with three class-boundary misses (a-05, v-04, n-05)](https://dhbtuus86mod.cloudfront.net/run-evals.png)
+
+17/20 agreement against the hand-labeled expectations in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts). The three misses (a-05, v-04, n-05) are class-boundary judgment calls, not classifier failures.
