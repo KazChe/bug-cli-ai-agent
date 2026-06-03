@@ -1,0 +1,86 @@
+[
+  {
+    "classification": "actionable_ticket",
+    "original_input": "Deleted a project this morning. Now if I paste the old URL into Chrome it still loads our app shell, the left sidebar says 'No chats yet', and the main panel shows '404 We can't access this project.' There's no button to go back to Projects.",
+    "report_id": "report-0",
+    "title": "Deleted project URL loads app shell with no navigation back to Projects",
+    "summary": "After deleting a project, navigating to the project's old URL loads the app shell (sidebar showing \"No chats yet\", main panel showing \"404 We can't access this project.\") but provides no affordance to return to the Projects list. The user is effectively stuck on a dead-end 404 state within the app.",
+    "severity": "medium",
+    "category": "project_lifecycle",
+    "extraction_confidence": "high",
+    "expected_behavior": "Navigating to a deleted project's URL should either redirect the user to the Projects list automatically, or display a clear 404/error state that includes a prominent navigation link (e.g. \"Back to Projects\" button) so the user is not stranded.",
+    "observed_behavior": "The app shell loads on the deleted project URL. The left sidebar shows \"No chats yet\" and the main panel shows \"404 We can't access this project.\" There is no button or link to navigate back to the Projects list, leaving the user with no obvious recovery path.",
+    "steps_to_reproduce": [
+      "Create a project and note its URL.",
+      "Delete the project via the normal project deletion flow.",
+      "Paste or navigate to the old project URL in Chrome.",
+      "Observe: the app shell renders with sidebar showing 'No chats yet' and main panel showing '404 We can't access this project.' — no back-navigation button is present."
+    ],
+    "engineering_notes": "The 404 error state is being rendered correctly at the data/API level (project lookup fails as expected post-deletion), but the UI route handler for deleted/non-existent project IDs is not implementing a redirect or injecting a recovery CTA. The sidebar rendering \"No chats yet\" instead of being hidden or replaced suggests the layout shell is mounting fully before the 404 state is resolved, likely via a project-scoped data fetch that returns 404 mid-render rather than at the router level. Fix candidates: (1) add a router-level guard that redirects to /projects on 404 project fetch, or (2) ensure the 404 error component within the project shell includes a \"Back to Projects\" navigation link.",
+    "missing_information": [
+      "Browser version / OS (Chrome version not specified, though Chrome on desktop is implied).",
+      "Whether the user is redirected or stuck permanently (can they navigate away via other means, e.g. browser back button).",
+      "Whether this occurs for all deleted projects or was observed only once.",
+      "Account plan / user role (owner vs. member) in case permissions affect the error path."
+    ]
+  },
+  {
+    "classification": "partial_ticket_needs_clarification",
+    "original_input": "Contract review gave me a totally wrong answer about the indemnity clause. I uploaded the PDF and asked about the cap on liability and it said unlimited but it's clearly capped at $1M in the doc.",
+    "report_id": "report-1",
+    "title": "AI incorrectly reports unlimited liability when contract clearly caps it at $1M",
+    "summary": "User uploaded a PDF contract and queried the AI about the liability cap in the indemnity clause. The AI responded that liability was unlimited, but the document explicitly states a $1M cap. This is a factual AI misread or extraction failure on a material legal clause.",
+    "severity": "high",
+    "category": "ai_response",
+    "extraction_confidence": "medium",
+    "expected_behavior": "The AI should have identified and returned the $1M liability cap stated in the indemnity clause of the uploaded PDF.",
+    "observed_behavior": "The AI responded that the liability was unlimited, contradicting the explicit $1M cap present in the contract.",
+    "steps_to_reproduce": [
+      "Upload a PDF contract containing an indemnity clause with an explicit liability cap (e.g. $1M).",
+      "Ask the AI a question about the cap on liability in the indemnity clause.",
+      "Observe that the AI returns 'unlimited' instead of the stated cap amount."
+    ],
+    "engineering_notes": "This appears to be a hallucination or document-grounding failure on a specific clause type (indemnity/liability cap). Possible causes include: (1) the PDF parser failing to extract the relevant section correctly (e.g. scanned/image-based PDF, complex table, or footnote formatting); (2) the model over-relying on a prior or default assumption about indemnity clauses rather than grounding in the retrieved chunk; (3) a retrieval/chunking issue where the liability cap text was split across chunks and not surfaced in context. The explicit contradiction between AI output and document content makes this a meaningful regression candidate. Reproducing requires the actual PDF and prompt.",
+    "missing_information": [
+      "The actual PDF document (or a sanitized/representative version) to reproduce the extraction failure.",
+      "The exact prompt/question submitted to the AI.",
+      "The full AI response (not just the liability conclusion).",
+      "Whether the PDF is text-based or scanned/image-based.",
+      "The project or session ID to retrieve server-side logs.",
+      "Whether this has occurred on other documents or appears isolated to this contract."
+    ],
+    "clarifying_questions": [
+      "Could you share the PDF (or a sanitized version), or paste the text of the indemnity clause as it appears in the document? This is the single most important item to reproduce the issue.",
+      "What was the exact question you typed to the AI when asking about the liability cap?",
+      "Was the PDF a scanned/image document, or a natively digital PDF with selectable text?",
+      "Can you share the full AI response, or just the portion that stated liability was unlimited?",
+      "Do you have a project or session ID (visible in the URL or settings) so we can pull the server-side logs?"
+    ],
+    "what_unlocks_actionable": [
+      "Providing the source PDF or the verbatim indemnity clause text allows engineering to confirm a parse/extraction failure vs. a model hallucination.",
+      "Sharing the exact prompt and full AI response enables prompt-level reproduction without needing the document.",
+      "A session or project ID allows log retrieval to inspect chunk retrieval and model context directly."
+    ]
+  },
+  {
+    "classification": "too_vague_request_more_info",
+    "original_input": "upload is broken",
+    "report_id": "report-2",
+    "interpretation": "The user reports that \"upload is broken\" but provides no additional context — no file type, no error message, no steps taken, and no description of what \"broken\" means (e.g. silent failure, error message, hang, wrong parsing output).",
+    "clarifying_questions": [
+      "What type of file were you trying to upload (e.g. PDF, DOCX, XLSX) and roughly how large was it?",
+      "What exactly happens when the upload fails — do you see an error message, a spinner that never completes, or something else? If there is an error message, please share the exact text.",
+      "Which browser and operating system are you using, and does the issue occur consistently or only sometimes?",
+      "Is this happening in a specific project, or across all projects in your workspace?"
+    ],
+    "suspected_category": "upload"
+  },
+  {
+    "classification": "non_bug_support_question",
+    "original_input": "How do I export my project to Word? I see PDF in the menu but I need .docx.",
+    "report_id": "report-3",
+    "suggested_route": "feature_request",
+    "suggested_response": "Thanks for reaching out! What you're describing — exporting to .docx (Word format) — isn't a bug report, but rather a question about available functionality. Currently, it sounds like only PDF export is available in the menu. If .docx export doesn't exist in the product yet, this would be a feature request rather than a bug fix. We'd recommend: (1) checking our documentation to confirm whether .docx export is supported anywhere in the product, and (2) if it's not available, submitting a feature request through our feedback channel so the product team can consider it for a future release.",
+    "reasoning": "The user is asking how to perform an action (export to .docx/Word format) and notes they can only see PDF in the menu. This is not a report of unexpected behavior — it is either a how-to question or an implicit feature request. No breakage or regression is described. The appropriate route is to direct them to docs to confirm current export capabilities, or to a feature request channel if .docx export is not yet supported."
+  }
+]

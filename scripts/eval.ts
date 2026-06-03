@@ -69,16 +69,21 @@ interface Row {
 }
 
 const start = Date.now();
+// Progress goes to stderr so a redirected stdout (`bun run eval > out.txt`)
+// stays clean. Dot for agreement, ! for disagreement, x for error.
 const rows: Row[] = await runWithConcurrency(corpus, CONCURRENCY, async (entry) => {
   try {
     const out = await classifyReport(entry.id, entry.input, client, { model });
+    const agree = out.classification === entry.expectedClass;
+    process.stderr.write(agree ? '.' : '!');
     return {
       id: entry.id,
       expected: entry.expectedClass,
       got: out.classification,
-      agree: out.classification === entry.expectedClass,
+      agree,
     };
   } catch (e) {
+    process.stderr.write('x');
     if (e instanceof ClassifyError) {
       const detail =
         e.cause instanceof ZodError
@@ -92,7 +97,7 @@ const rows: Row[] = await runWithConcurrency(corpus, CONCURRENCY, async (entry) 
         got: 'ERROR' as const,
         agree: false,
         errStage: e.stage,
-        errMsg: detail ? `${e.message} — ${detail}` : e.message,
+        errMsg: detail ? `${e.message}, ${detail}` : e.message,
       };
     }
     return {
@@ -104,6 +109,7 @@ const rows: Row[] = await runWithConcurrency(corpus, CONCURRENCY, async (entry) 
     };
   }
 });
+process.stderr.write(' done.\n');
 
 const agreeCount = rows.filter((r) => r.agree).length;
 const elapsed = ((Date.now() - start) / 1000).toFixed(1);
