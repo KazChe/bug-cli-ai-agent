@@ -1,0 +1,3008 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-23T03:19:14.102Z",
+    "updatedAt": "2026-09-23T03:31:10.215Z",
+    "requestedModel": "jev-1.13.0",
+    "reportedModel": "jev-1.13.0",
+    "criteriaCommit": "fde143fdb55de994bc7352050edfff014c10c272",
+    "criteriaSha256": "13a6ad9b03a0bcc83332d378c826283c07fa352f792f7446c4cd5b8bb06675ea",
+    "runs": 3,
+    "corpusSize": 20,
+    "includeNouls": true,
+    "pricing": {
+      "jevUsdPerInputToken": 4.2e-8,
+      "jevSource": "https://docs.typesafe.ai/models",
+      "anthropicUsdPerMTok": {
+        "input": 3,
+        "cacheWrite5m": 3.75,
+        "cacheRead": 0.3,
+        "output": 15
+      },
+      "anthropicSource": "https://platform.claude.com/docs/en/about-claude/pricing"
+    },
+    "baseline": {
+      "enabled": true,
+      "model": "claude-sonnet-4-6",
+      "runsRequested": 3,
+      "runsCompleted": 3,
+      "concurrency": 1
+    }
+  },
+  "jev": {
+    "runs": [
+      {
+        "run": 1,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 421.9272500000001,
+            "inputTokens": 1093,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.94,
+              "states_expected_and_observed": 0.98
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 162.85037499999999,
+            "inputTokens": 1089,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.95,
+            "probabilities": {
+              "actionable_ticket": 0.96,
+              "partial_ticket_needs_clarification": 0.04,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.94
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 197.48583399999995,
+            "inputTokens": 1070,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.94,
+            "probabilities": {
+              "actionable_ticket": 0.95,
+              "partial_ticket_needs_clarification": 0.04,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.01
+            },
+            "nouls": {
+              "asks_how_product_works": 0.29,
+              "names_surface_and_symptom": 0.94,
+              "states_expected_and_observed": 0.96
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 188.48775,
+            "inputTokens": 1061,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0.99,
+              "partial_ticket_needs_clarification": 0.01,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.92,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 182.2443330000001,
+            "inputTokens": 1079,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.66,
+            "probabilities": {
+              "actionable_ticket": 0.74,
+              "partial_ticket_needs_clarification": 0.26,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.18,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.94
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 164.08520799999997,
+            "inputTokens": 1048,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.57,
+            "probabilities": {
+              "actionable_ticket": 0.68,
+              "partial_ticket_needs_clarification": 0.32,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.9,
+              "states_expected_and_observed": 0.93
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 165.03929100000005,
+            "inputTokens": 1046,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.6,
+            "probabilities": {
+              "actionable_ticket": 0.3,
+              "partial_ticket_needs_clarification": 0.7,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.85,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 168.59670899999992,
+            "inputTokens": 1048,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.92,
+            "probabilities": {
+              "actionable_ticket": 0.06,
+              "partial_ticket_needs_clarification": 0.94,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.11,
+              "names_surface_and_symptom": 0.76,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 179.67012499999987,
+            "inputTokens": 1031,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.46,
+            "probabilities": {
+              "actionable_ticket": 0.4,
+              "partial_ticket_needs_clarification": 0.6,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.08,
+              "names_surface_and_symptom": 0.86,
+              "states_expected_and_observed": 0.96
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 162.82341599999995,
+            "inputTokens": 1034,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": false,
+            "confidence": 0.93,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.95,
+              "too_vague_request_more_info": 0.05,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.11,
+              "names_surface_and_symptom": 0.63,
+              "states_expected_and_observed": 0.41
+            },
+            "derivedBucket": "partial_ticket_needs_clarification",
+            "derivedAgree": false,
+            "latencyMs": 211.64820800000007,
+            "inputTokens": 1008,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.08
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 194.56487500000003,
+            "inputTokens": 1004,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.49,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.05
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 254.26587500000005,
+            "inputTokens": 1027,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 0.61,
+            "probabilities": {
+              "actionable_ticket": 0.04,
+              "partial_ticket_needs_clarification": 0.25,
+              "too_vague_request_more_info": 0.71,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.5,
+              "states_expected_and_observed": 0.26
+            },
+            "derivedBucket": "partial_ticket_needs_clarification",
+            "derivedAgree": false,
+            "latencyMs": 181.79487500000005,
+            "inputTokens": 1103,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.2
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 222.75237500000003,
+            "inputTokens": 1007,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.99,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.99
+            },
+            "nouls": {
+              "asks_how_product_works": 0.96,
+              "names_surface_and_symptom": 0.68,
+              "states_expected_and_observed": 0.82
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 164.89441699999998,
+            "inputTokens": 1022,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 1
+            },
+            "nouls": {
+              "asks_how_product_works": 0.98,
+              "names_surface_and_symptom": 0.36,
+              "states_expected_and_observed": 0.39
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 203.82804199999964,
+            "inputTokens": 1029,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.95,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0.02,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.97
+            },
+            "nouls": {
+              "asks_how_product_works": 0.92,
+              "names_surface_and_symptom": 0.82,
+              "states_expected_and_observed": 0.82
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 185.5999579999998,
+            "inputTokens": 1038,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.97,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.01,
+              "too_vague_request_more_info": 0.01,
+              "non_bug_support_question": 0.98
+            },
+            "nouls": {
+              "asks_how_product_works": 0.9,
+              "names_surface_and_symptom": 0.18,
+              "states_expected_and_observed": 0.71
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 167.79945899999984,
+            "inputTokens": 1016,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "choice": "too_vague_request_more_info",
+            "agree": false,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0.99,
+              "non_bug_support_question": 0.01
+            },
+            "nouls": {
+              "asks_how_product_works": 0.29,
+              "names_surface_and_symptom": 0.05,
+              "states_expected_and_observed": 0.2
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": false,
+            "latencyMs": 209.15250000000015,
+            "inputTokens": 1025,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          }
+        ]
+      },
+      {
+        "run": 2,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.87
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 163.92720800000006,
+            "inputTokens": 1093,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.94,
+              "states_expected_and_observed": 0.98
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 158.04633300000023,
+            "inputTokens": 1089,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.96,
+            "probabilities": {
+              "actionable_ticket": 0.97,
+              "partial_ticket_needs_clarification": 0.03,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.92,
+              "states_expected_and_observed": 0.93
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 261.25591600000007,
+            "inputTokens": 1070,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.94,
+            "probabilities": {
+              "actionable_ticket": 0.96,
+              "partial_ticket_needs_clarification": 0.04,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.36,
+              "names_surface_and_symptom": 0.94,
+              "states_expected_and_observed": 0.96
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 256.49825000000055,
+            "inputTokens": 1061,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0.99,
+              "partial_ticket_needs_clarification": 0.01,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 197.05687500000022,
+            "inputTokens": 1079,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.68,
+            "probabilities": {
+              "actionable_ticket": 0.76,
+              "partial_ticket_needs_clarification": 0.24,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.18,
+              "names_surface_and_symptom": 0.92,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 200.8074999999999,
+            "inputTokens": 1048,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.56,
+            "probabilities": {
+              "actionable_ticket": 0.67,
+              "partial_ticket_needs_clarification": 0.33,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.9,
+              "states_expected_and_observed": 0.94
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 142.22695900000053,
+            "inputTokens": 1046,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.63,
+            "probabilities": {
+              "actionable_ticket": 0.27,
+              "partial_ticket_needs_clarification": 0.73,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.86,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 196.23612500000036,
+            "inputTokens": 1048,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.91,
+            "probabilities": {
+              "actionable_ticket": 0.06,
+              "partial_ticket_needs_clarification": 0.9400000000000001,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.11,
+              "names_surface_and_symptom": 0.75,
+              "states_expected_and_observed": 0.89
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 186.78391699999975,
+            "inputTokens": 1031,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.52,
+            "probabilities": {
+              "actionable_ticket": 0.36,
+              "partial_ticket_needs_clarification": 0.64,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.07,
+              "names_surface_and_symptom": 0.85,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 164.46220800000083,
+            "inputTokens": 1034,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": false,
+            "confidence": 0.91,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.9400000000000001,
+              "too_vague_request_more_info": 0.06,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.11,
+              "names_surface_and_symptom": 0.63,
+              "states_expected_and_observed": 0.46
+            },
+            "derivedBucket": "partial_ticket_needs_clarification",
+            "derivedAgree": false,
+            "latencyMs": 214.0392499999998,
+            "inputTokens": 1008,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.08
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 134.85420900000008,
+            "inputTokens": 1004,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.46,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.05
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 184.5003340000003,
+            "inputTokens": 1027,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 0.63,
+            "probabilities": {
+              "actionable_ticket": 0.04,
+              "partial_ticket_needs_clarification": 0.24,
+              "too_vague_request_more_info": 0.72,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.49,
+              "states_expected_and_observed": 0.26
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 186.18066699999963,
+            "inputTokens": 1103,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.19
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 210.5835420000003,
+            "inputTokens": 1007,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.99,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.99
+            },
+            "nouls": {
+              "asks_how_product_works": 0.96,
+              "names_surface_and_symptom": 0.67,
+              "states_expected_and_observed": 0.81
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 179.0227500000001,
+            "inputTokens": 1022,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 1
+            },
+            "nouls": {
+              "asks_how_product_works": 0.98,
+              "names_surface_and_symptom": 0.36,
+              "states_expected_and_observed": 0.38
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 231.99345800000083,
+            "inputTokens": 1029,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.96,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0.02,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.97
+            },
+            "nouls": {
+              "asks_how_product_works": 0.92,
+              "names_surface_and_symptom": 0.79,
+              "states_expected_and_observed": 0.82
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 226.3594579999999,
+            "inputTokens": 1038,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.96,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.02,
+              "too_vague_request_more_info": 0.01,
+              "non_bug_support_question": 0.97
+            },
+            "nouls": {
+              "asks_how_product_works": 0.9,
+              "names_surface_and_symptom": 0.2,
+              "states_expected_and_observed": 0.68
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 144.8010830000003,
+            "inputTokens": 1016,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "choice": "too_vague_request_more_info",
+            "agree": false,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0.99,
+              "non_bug_support_question": 0.01
+            },
+            "nouls": {
+              "asks_how_product_works": 0.31,
+              "names_surface_and_symptom": 0.04,
+              "states_expected_and_observed": 0.21
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": false,
+            "latencyMs": 163.06925000000047,
+            "inputTokens": 1025,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          }
+        ]
+      },
+      {
+        "run": 3,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.99,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.87
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 158.66983299999993,
+            "inputTokens": 1093,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 1,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.93,
+              "states_expected_and_observed": 0.98
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 200.32566700000098,
+            "inputTokens": 1089,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.95,
+            "probabilities": {
+              "actionable_ticket": 0.96,
+              "partial_ticket_needs_clarification": 0.04,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.93
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 213.5347499999989,
+            "inputTokens": 1070,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.95,
+            "probabilities": {
+              "actionable_ticket": 0.96,
+              "partial_ticket_needs_clarification": 0.04,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.34,
+              "names_surface_and_symptom": 0.94,
+              "states_expected_and_observed": 0.96
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 148.1057920000003,
+            "inputTokens": 1061,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "choice": "actionable_ticket",
+            "agree": true,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0.99,
+              "partial_ticket_needs_clarification": 0.01,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": true,
+            "latencyMs": 200.12529099999847,
+            "inputTokens": 1079,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.68,
+            "probabilities": {
+              "actionable_ticket": 0.76,
+              "partial_ticket_needs_clarification": 0.24,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.18,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.95
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 168.3130829999991,
+            "inputTokens": 1048,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "actionable_ticket",
+            "agree": false,
+            "confidence": 0.54,
+            "probabilities": {
+              "actionable_ticket": 0.65,
+              "partial_ticket_needs_clarification": 0.35,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.91,
+              "states_expected_and_observed": 0.94
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 194.1062920000004,
+            "inputTokens": 1046,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.54,
+            "probabilities": {
+              "actionable_ticket": 0.34,
+              "partial_ticket_needs_clarification": 0.66,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.87,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 235.2345409999998,
+            "inputTokens": 1048,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.92,
+            "probabilities": {
+              "actionable_ticket": 0.06,
+              "partial_ticket_needs_clarification": 0.94,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.1,
+              "names_surface_and_symptom": 0.74,
+              "states_expected_and_observed": 0.9
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 223.17112500000076,
+            "inputTokens": 1031,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": true,
+            "confidence": 0.45,
+            "probabilities": {
+              "actionable_ticket": 0.41,
+              "partial_ticket_needs_clarification": 0.59,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.07,
+              "names_surface_and_symptom": 0.87,
+              "states_expected_and_observed": 0.96
+            },
+            "derivedBucket": "actionable_ticket",
+            "derivedAgree": false,
+            "latencyMs": 309.55783300000076,
+            "inputTokens": 1034,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "choice": "partial_ticket_needs_clarification",
+            "agree": false,
+            "confidence": 0.92,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.94,
+              "too_vague_request_more_info": 0.06,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.12,
+              "names_surface_and_symptom": 0.64,
+              "states_expected_and_observed": 0.45
+            },
+            "derivedBucket": "partial_ticket_needs_clarification",
+            "derivedAgree": false,
+            "latencyMs": 243.45491700000093,
+            "inputTokens": 1008,
+            "outputTokens": 133,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.05,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.08
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 246.22925000000032,
+            "inputTokens": 1004,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.44,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.05
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 220.55141700000058,
+            "inputTokens": 1027,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 0.64,
+            "probabilities": {
+              "actionable_ticket": 0.04,
+              "partial_ticket_needs_clarification": 0.23,
+              "too_vague_request_more_info": 0.73,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.03,
+              "names_surface_and_symptom": 0.46,
+              "states_expected_and_observed": 0.27
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 219.6839999999993,
+            "inputTokens": 1103,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "choice": "too_vague_request_more_info",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 1,
+              "non_bug_support_question": 0
+            },
+            "nouls": {
+              "asks_how_product_works": 0.04,
+              "names_surface_and_symptom": 0.03,
+              "states_expected_and_observed": 0.2
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": true,
+            "latencyMs": 223.41979099999844,
+            "inputTokens": 1007,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.99,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.99
+            },
+            "nouls": {
+              "asks_how_product_works": 0.96,
+              "names_surface_and_symptom": 0.67,
+              "states_expected_and_observed": 0.81
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 317.04583300000013,
+            "inputTokens": 1022,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 1,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 1
+            },
+            "nouls": {
+              "asks_how_product_works": 0.98,
+              "names_surface_and_symptom": 0.32,
+              "states_expected_and_observed": 0.37
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 258.13687500000015,
+            "inputTokens": 1029,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.97,
+            "probabilities": {
+              "actionable_ticket": 0.01,
+              "partial_ticket_needs_clarification": 0.02,
+              "too_vague_request_more_info": 0,
+              "non_bug_support_question": 0.97
+            },
+            "nouls": {
+              "asks_how_product_works": 0.91,
+              "names_surface_and_symptom": 0.81,
+              "states_expected_and_observed": 0.84
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 185.93074999999953,
+            "inputTokens": 1038,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "choice": "non_bug_support_question",
+            "agree": true,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0.01,
+              "too_vague_request_more_info": 0.01,
+              "non_bug_support_question": 0.98
+            },
+            "nouls": {
+              "asks_how_product_works": 0.89,
+              "names_surface_and_symptom": 0.19,
+              "states_expected_and_observed": 0.7
+            },
+            "derivedBucket": "non_bug_support_question",
+            "derivedAgree": true,
+            "latencyMs": 185.0395410000001,
+            "inputTokens": 1016,
+            "outputTokens": 129,
+            "model": "jev-1.13.0"
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "choice": "too_vague_request_more_info",
+            "agree": false,
+            "confidence": 0.98,
+            "probabilities": {
+              "actionable_ticket": 0,
+              "partial_ticket_needs_clarification": 0,
+              "too_vague_request_more_info": 0.99,
+              "non_bug_support_question": 0.01
+            },
+            "nouls": {
+              "asks_how_product_works": 0.27,
+              "names_surface_and_symptom": 0.05,
+              "states_expected_and_observed": 0.2
+            },
+            "derivedBucket": "too_vague_request_more_info",
+            "derivedAgree": false,
+            "latencyMs": 209.23433300000033,
+            "inputTokens": 1025,
+            "outputTokens": 131,
+            "model": "jev-1.13.0"
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "agreementPerRun": [
+        16,
+        16,
+        16
+      ],
+      "derivedAgreementPerRun": [
+        12,
+        13,
+        13
+      ],
+      "identicalChoices": true,
+      "identicalProbabilities": false,
+      "maxProbDelta": 0.07,
+      "changedRows": [
+        {
+          "id": "a-03",
+          "choices": [
+            "actionable_ticket",
+            "actionable_ticket",
+            "actionable_ticket"
+          ],
+          "maxDelta": 0.010000000000000009
+        },
+        {
+          "id": "a-04",
+          "choices": [
+            "actionable_ticket",
+            "actionable_ticket",
+            "actionable_ticket"
+          ],
+          "maxDelta": 0.010000000000000009
+        },
+        {
+          "id": "p-01",
+          "choices": [
+            "actionable_ticket",
+            "actionable_ticket",
+            "actionable_ticket"
+          ],
+          "maxDelta": 0.020000000000000018
+        },
+        {
+          "id": "p-02",
+          "choices": [
+            "actionable_ticket",
+            "actionable_ticket",
+            "actionable_ticket"
+          ],
+          "maxDelta": 0.030000000000000027
+        },
+        {
+          "id": "p-03",
+          "choices": [
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification"
+          ],
+          "maxDelta": 0.07
+        },
+        {
+          "id": "p-04",
+          "choices": [
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification"
+          ],
+          "maxDelta": 1.1102230246251565e-16
+        },
+        {
+          "id": "p-05",
+          "choices": [
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification"
+          ],
+          "maxDelta": 0.050000000000000044
+        },
+        {
+          "id": "v-01",
+          "choices": [
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification",
+            "partial_ticket_needs_clarification"
+          ],
+          "maxDelta": 0.010000000000000009
+        },
+        {
+          "id": "v-04",
+          "choices": [
+            "too_vague_request_more_info",
+            "too_vague_request_more_info",
+            "too_vague_request_more_info"
+          ],
+          "maxDelta": 0.020000000000000018
+        },
+        {
+          "id": "n-04",
+          "choices": [
+            "non_bug_support_question",
+            "non_bug_support_question",
+            "non_bug_support_question"
+          ],
+          "maxDelta": 0.010000000000000009
+        }
+      ],
+      "latencyMs": {
+        "mean": 202.5347846833334,
+        "median": 194.56487500000003,
+        "p95": 261.25591600000007,
+        "n": 60
+      },
+      "totalInputTokens": 62634,
+      "totalOutputTokens": 7818,
+      "estimatedCostUsdPer1000Reports": 0.0438438,
+      "confusionLastRun": {
+        "actionable_ticket": {
+          "actionable_ticket": 5,
+          "partial_ticket_needs_clarification": 0,
+          "too_vague_request_more_info": 0,
+          "non_bug_support_question": 0
+        },
+        "partial_ticket_needs_clarification": {
+          "actionable_ticket": 2,
+          "partial_ticket_needs_clarification": 3,
+          "too_vague_request_more_info": 0,
+          "non_bug_support_question": 0
+        },
+        "too_vague_request_more_info": {
+          "actionable_ticket": 0,
+          "partial_ticket_needs_clarification": 1,
+          "too_vague_request_more_info": 4,
+          "non_bug_support_question": 0
+        },
+        "non_bug_support_question": {
+          "actionable_ticket": 0,
+          "partial_ticket_needs_clarification": 0,
+          "too_vague_request_more_info": 1,
+          "non_bug_support_question": 4
+        }
+      },
+      "publishedBaselineMisses": [
+        {
+          "id": "a-05",
+          "expected": "actionable_ticket",
+          "choice": "actionable_ticket",
+          "agree": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "actionable_ticket": 0.99,
+            "partial_ticket_needs_clarification": 0.01,
+            "too_vague_request_more_info": 0,
+            "non_bug_support_question": 0
+          },
+          "nouls": {
+            "asks_how_product_works": 0.04,
+            "names_surface_and_symptom": 0.91,
+            "states_expected_and_observed": 0.95
+          },
+          "derivedBucket": "actionable_ticket",
+          "derivedAgree": true,
+          "latencyMs": 200.12529099999847,
+          "inputTokens": 1079,
+          "outputTokens": 129,
+          "model": "jev-1.13.0"
+        },
+        {
+          "id": "v-04",
+          "expected": "too_vague_request_more_info",
+          "choice": "too_vague_request_more_info",
+          "agree": true,
+          "confidence": 0.64,
+          "probabilities": {
+            "actionable_ticket": 0.04,
+            "partial_ticket_needs_clarification": 0.23,
+            "too_vague_request_more_info": 0.73,
+            "non_bug_support_question": 0
+          },
+          "nouls": {
+            "asks_how_product_works": 0.03,
+            "names_surface_and_symptom": 0.46,
+            "states_expected_and_observed": 0.27
+          },
+          "derivedBucket": "too_vague_request_more_info",
+          "derivedAgree": true,
+          "latencyMs": 219.6839999999993,
+          "inputTokens": 1103,
+          "outputTokens": 131,
+          "model": "jev-1.13.0"
+        },
+        {
+          "id": "n-05",
+          "expected": "non_bug_support_question",
+          "choice": "too_vague_request_more_info",
+          "agree": false,
+          "confidence": 0.98,
+          "probabilities": {
+            "actionable_ticket": 0,
+            "partial_ticket_needs_clarification": 0,
+            "too_vague_request_more_info": 0.99,
+            "non_bug_support_question": 0.01
+          },
+          "nouls": {
+            "asks_how_product_works": 0.27,
+            "names_surface_and_symptom": 0.05,
+            "states_expected_and_observed": 0.2
+          },
+          "derivedBucket": "too_vague_request_more_info",
+          "derivedAgree": false,
+          "latencyMs": 209.23433300000033,
+          "inputTokens": 1025,
+          "outputTokens": 131,
+          "model": "jev-1.13.0"
+        }
+      ],
+      "confidenceDial": [
+        {
+          "threshold": 0.6,
+          "covered": 17,
+          "coveredFraction": 0.85,
+          "agreementOnCovered": 0.8235294117647058
+        },
+        {
+          "threshold": 0.7,
+          "covered": 15,
+          "coveredFraction": 0.75,
+          "agreementOnCovered": 0.8666666666666667
+        },
+        {
+          "threshold": 0.8,
+          "covered": 15,
+          "coveredFraction": 0.75,
+          "agreementOnCovered": 0.8666666666666667
+        },
+        {
+          "threshold": 0.9,
+          "covered": 15,
+          "coveredFraction": 0.75,
+          "agreementOnCovered": 0.8666666666666667
+        }
+      ],
+      "adversarial": [
+        {
+          "id": "x-01",
+          "expected": "too_vague_request_more_info",
+          "choice": "actionable_ticket",
+          "agree": false,
+          "confidence": 0.47,
+          "probabilities": {
+            "actionable_ticket": 0.6,
+            "partial_ticket_needs_clarification": 0.06,
+            "too_vague_request_more_info": 0.34,
+            "non_bug_support_question": 0
+          },
+          "nouls": {
+            "asks_how_product_works": 0.08,
+            "names_surface_and_symptom": 0.05,
+            "states_expected_and_observed": 0.06
+          },
+          "derivedBucket": "too_vague_request_more_info",
+          "derivedAgree": true,
+          "latencyMs": 217.7114160000001,
+          "inputTokens": 1026,
+          "outputTokens": 129,
+          "model": "jev-1.13.0",
+          "steersToward": "actionable_ticket",
+          "moved": true
+        },
+        {
+          "id": "x-02",
+          "expected": "non_bug_support_question",
+          "choice": "non_bug_support_question",
+          "agree": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "actionable_ticket": 0,
+            "partial_ticket_needs_clarification": 0.01,
+            "too_vague_request_more_info": 0,
+            "non_bug_support_question": 0.99
+          },
+          "nouls": {
+            "asks_how_product_works": 0.91,
+            "names_surface_and_symptom": 0.13,
+            "states_expected_and_observed": 0.12
+          },
+          "derivedBucket": "non_bug_support_question",
+          "derivedAgree": true,
+          "latencyMs": 203.24474999999984,
+          "inputTokens": 1032,
+          "outputTokens": 129,
+          "model": "jev-1.13.0",
+          "steersToward": "partial_ticket_needs_clarification",
+          "moved": false
+        },
+        {
+          "id": "x-03",
+          "expected": "actionable_ticket",
+          "choice": "actionable_ticket",
+          "agree": true,
+          "confidence": 1,
+          "probabilities": {
+            "actionable_ticket": 1,
+            "partial_ticket_needs_clarification": 0,
+            "too_vague_request_more_info": 0,
+            "non_bug_support_question": 0
+          },
+          "nouls": {
+            "asks_how_product_works": 0.04,
+            "names_surface_and_symptom": 0.93,
+            "states_expected_and_observed": 0.97
+          },
+          "derivedBucket": "actionable_ticket",
+          "derivedAgree": true,
+          "latencyMs": 204.28195799999958,
+          "inputTokens": 1084,
+          "outputTokens": 129,
+          "model": "jev-1.13.0",
+          "steersToward": "actionable_ticket",
+          "moved": false
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "runs": [
+      {
+        "run": 1,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 16576.575041999997,
+            "usage": {
+              "input_tokens": 522,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 698,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15520.144958999997,
+            "usage": {
+              "input_tokens": 510,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 785,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 14178.072625,
+            "usage": {
+              "input_tokens": 499,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 745,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 14233.973333999995,
+            "usage": {
+              "input_tokens": 488,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 682,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15195.037083000003,
+            "usage": {
+              "input_tokens": 512,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 782,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 17433.613125000003,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 884,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 19631.584583999997,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 924,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 19535.740291999988,
+            "usage": {
+              "input_tokens": 477,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 924,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 14940.179125000024,
+            "usage": {
+              "input_tokens": 458,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 756,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 15804.587,
+            "usage": {
+              "input_tokens": 462,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 815,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5197.812875000003,
+            "usage": {
+              "input_tokens": 438,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 242,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4628.542040999979,
+            "usage": {
+              "input_tokens": 430,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 222,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4965.276083000004,
+            "usage": {
+              "input_tokens": 453,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 224,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "got": "partial_ticket_needs_clarification",
+            "agree": false,
+            "latencyMs": 16384.709000000003,
+            "usage": {
+              "input_tokens": 515,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 844,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4398.046541999996,
+            "usage": {
+              "input_tokens": 433,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 185,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 7357.174417000002,
+            "usage": {
+              "input_tokens": 448,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 336,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 5439.617583000014,
+            "usage": {
+              "input_tokens": 457,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 251,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 6722.145416000014,
+            "usage": {
+              "input_tokens": 467,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 280,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 6597.204792000004,
+            "usage": {
+              "input_tokens": 442,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 257,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "got": "too_vague_request_more_info",
+            "agree": false,
+            "latencyMs": 4528.502625000023,
+            "usage": {
+              "input_tokens": 450,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 207,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          }
+        ]
+      },
+      {
+        "run": 2,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15028.811291999999,
+            "usage": {
+              "input_tokens": 522,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 732,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15907.286542000016,
+            "usage": {
+              "input_tokens": 510,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 813,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 16721.268624999968,
+            "usage": {
+              "input_tokens": 499,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 804,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 14351.98970799998,
+            "usage": {
+              "input_tokens": 488,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 688,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15767.002542000031,
+            "usage": {
+              "input_tokens": 512,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 805,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 16389.732583000034,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 843,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 18431.932666999986,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 866,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 19988.48875000002,
+            "usage": {
+              "input_tokens": 477,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 945,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 15001.773624999973,
+            "usage": {
+              "input_tokens": 458,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 765,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 16446.930208000005,
+            "usage": {
+              "input_tokens": 462,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 785,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5293.326124999963,
+            "usage": {
+              "input_tokens": 438,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 260,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4909.247625000018,
+            "usage": {
+              "input_tokens": 430,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 228,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4462.651083999954,
+            "usage": {
+              "input_tokens": 453,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 206,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "got": "partial_ticket_needs_clarification",
+            "agree": false,
+            "latencyMs": 17549.227083000005,
+            "usage": {
+              "input_tokens": 515,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 892,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5183.913041999971,
+            "usage": {
+              "input_tokens": 433,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 230,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 5328.836750000017,
+            "usage": {
+              "input_tokens": 448,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 267,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 5749.510500000033,
+            "usage": {
+              "input_tokens": 457,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 257,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 7541.638166000019,
+            "usage": {
+              "input_tokens": 467,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 324,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 5632.506083999993,
+            "usage": {
+              "input_tokens": 442,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 256,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "got": "too_vague_request_more_info",
+            "agree": false,
+            "latencyMs": 4765.349000000046,
+            "usage": {
+              "input_tokens": 450,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 223,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          }
+        ]
+      },
+      {
+        "run": 3,
+        "rows": [
+          {
+            "id": "a-01",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 13623.087375000003,
+            "usage": {
+              "input_tokens": 522,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 677,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-02",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15936.361499999999,
+            "usage": {
+              "input_tokens": 510,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 804,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-03",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 15947.045916999981,
+            "usage": {
+              "input_tokens": 499,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 785,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-04",
+            "expected": "actionable_ticket",
+            "got": "actionable_ticket",
+            "agree": true,
+            "latencyMs": 13851.020541000005,
+            "usage": {
+              "input_tokens": 488,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 665,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "a-05",
+            "expected": "actionable_ticket",
+            "got": "partial_ticket_needs_clarification",
+            "agree": false,
+            "latencyMs": 20628.121791000012,
+            "usage": {
+              "input_tokens": 512,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 1026,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-01",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 18688.315584000084,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 895,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-02",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 19889.96612499992,
+            "usage": {
+              "input_tokens": 475,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 952,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-03",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 18901.906167000066,
+            "usage": {
+              "input_tokens": 477,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 932,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-04",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 15803.20416600001,
+            "usage": {
+              "input_tokens": 458,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 822,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "p-05",
+            "expected": "partial_ticket_needs_clarification",
+            "got": "partial_ticket_needs_clarification",
+            "agree": true,
+            "latencyMs": 16986.236125000054,
+            "usage": {
+              "input_tokens": 462,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 813,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-01",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5084.754416999989,
+            "usage": {
+              "input_tokens": 438,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 243,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-02",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 4673.210542000015,
+            "usage": {
+              "input_tokens": 430,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 219,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-03",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5148.167000000016,
+            "usage": {
+              "input_tokens": 453,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 227,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-04",
+            "expected": "too_vague_request_more_info",
+            "got": "partial_ticket_needs_clarification",
+            "agree": false,
+            "latencyMs": 20639.666417,
+            "usage": {
+              "input_tokens": 515,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 985,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "v-05",
+            "expected": "too_vague_request_more_info",
+            "got": "too_vague_request_more_info",
+            "agree": true,
+            "latencyMs": 5401.914250000031,
+            "usage": {
+              "input_tokens": 433,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 216,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-01",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 6479.50774999999,
+            "usage": {
+              "input_tokens": 448,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 296,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-02",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 5957.057958999998,
+            "usage": {
+              "input_tokens": 457,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 271,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-03",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 7744.208083000034,
+            "usage": {
+              "input_tokens": 467,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 316,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-04",
+            "expected": "non_bug_support_question",
+            "got": "non_bug_support_question",
+            "agree": true,
+            "latencyMs": 6963.546041999944,
+            "usage": {
+              "input_tokens": 442,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 260,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          },
+          {
+            "id": "n-05",
+            "expected": "non_bug_support_question",
+            "got": "too_vague_request_more_info",
+            "agree": false,
+            "latencyMs": 4973.692959000007,
+            "usage": {
+              "input_tokens": 450,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 1997,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "output_tokens": 221,
+              "service_tier": "standard",
+              "inference_geo": "global"
+            }
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "agreementPerRun": [
+        18,
+        18,
+        17
+      ],
+      "missesLastRun": [
+        "a-05",
+        "v-04",
+        "n-05"
+      ],
+      "identicalChoices": false,
+      "changedRows": [
+        {
+          "id": "a-05",
+          "gots": [
+            "actionable_ticket",
+            "actionable_ticket",
+            "partial_ticket_needs_clarification"
+          ]
+        }
+      ],
+      "latencyMs": {
+        "mean": 11717.34918756667,
+        "median": 14178.072625,
+        "p95": 19889.96612499992,
+        "n": 60
+      },
+      "tokens": {
+        "input": 28233,
+        "cacheWrite": 0,
+        "cacheRead": 119820,
+        "output": 33857
+      },
+      "estimatedCostUsdTotal": 0.6285,
+      "estimatedCostUsdPer1000Reports": 10.475
+    }
+  }
+}

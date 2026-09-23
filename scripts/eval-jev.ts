@@ -440,8 +440,74 @@ for (const d of dial) {
   );
 }
 
-// Adversarial block
 let adversarialRows: AdversarialRow[] = [];
+let baselineRunRows: BaselineRow[][] = [];
+let baselineSummary: Record<string, unknown> | null = null;
+
+// The artifact is written at checkpoints (after the Jev runs, after the
+// adversarial block, after every baseline run) so a long baseline that gets
+// interrupted still leaves the Jev results on disk.
+const writeArtifact = async (): Promise<void> => {
+  const artifact = {
+    meta: {
+      generatedAt: startedAt.toISOString(),
+      updatedAt: new Date().toISOString(),
+      requestedModel: jev.requestedModel,
+      reportedModel,
+      criteriaCommit: gitCommit(),
+      criteriaSha256: criteriaSha256(),
+      runs: jevRuns,
+      corpusSize: corpus.length,
+      includeNouls,
+      pricing: {
+        jevUsdPerInputToken: JEV_USD_PER_INPUT_TOKEN,
+        jevSource: 'https://docs.typesafe.ai/models',
+        anthropicUsdPerMTok: ANTHROPIC_PRICING_USD_PER_MTOK[baselineModel] ?? null,
+        anthropicSource: 'https://platform.claude.com/docs/en/about-claude/pricing',
+      },
+      baseline: {
+        enabled: baselineEnabled,
+        model: baselineEnabled ? baselineModel : null,
+        runsRequested: baselineEnabled ? baselineRuns : 0,
+        runsCompleted: baselineRunRows.length,
+        concurrency: 1,
+      },
+    },
+    jev: {
+      runs: jevRunRows.map((rows, i) => ({ run: i + 1, rows })),
+      summary: {
+        agreementPerRun,
+        derivedAgreementPerRun,
+        identicalChoices,
+        identicalProbabilities,
+        maxProbDelta,
+        changedRows,
+        latencyMs: jevLatency,
+        totalInputTokens: totalJevInput,
+        totalOutputTokens: totalJevOutput,
+        estimatedCostUsdPer1000Reports: jevCostPer1000,
+        confusionLastRun,
+        publishedBaselineMisses: PUBLISHED_BASELINE_MISSES.map(
+          (id) => lastRun.find((r) => r.id === id) ?? null,
+        ),
+        confidenceDial: dial,
+        adversarial: adversarialRows,
+      },
+    },
+    ...(baselineEnabled
+      ? {
+          baseline: {
+            runs: baselineRunRows.map((rows, i) => ({ run: i + 1, rows })),
+            summary: baselineSummary,
+          },
+        }
+      : {}),
+  };
+  await Bun.write(outPath, JSON.stringify(artifact, null, 2) + '\n');
+};
+await writeArtifact();
+
+// Adversarial block
 if (runAdversarial) {
   process.stderr.write('Adversarial fixture ');
   const rows = await runJevOnce(adversarialCorpus, jev);
@@ -462,11 +528,10 @@ if (runAdversarial) {
         `conf ${r.confidence?.toFixed(2) ?? '-'}  moved=${r.moved}`,
     );
   }
+  await writeArtifact();
 }
 
 // Baseline
-let baselineRunRows: BaselineRow[][] = [];
-let baselineSummary: Record<string, unknown> | null = null;
 if (baselineEnabled && anthropicKey) {
   const anthropic = createRealClient(anthropicKey);
   const pricing = ANTHROPIC_PRICING_USD_PER_MTOK[baselineModel] ?? null;
@@ -508,6 +573,7 @@ if (baselineEnabled && anthropicKey) {
     }
     process.stderr.write(' done.\n');
     baselineRunRows.push(rows);
+    await writeArtifact();
   }
 
   const lastBaseline = baselineRunRows[baselineRunRows.length - 1] ?? [];
@@ -583,64 +649,7 @@ if (baselineEnabled && anthropicKey) {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Artifact
-// ---------------------------------------------------------------------------
-
-const artifact = {
-  meta: {
-    generatedAt: startedAt.toISOString(),
-    finishedAt: new Date().toISOString(),
-    requestedModel: jev.requestedModel,
-    reportedModel,
-    criteriaCommit: gitCommit(),
-    criteriaSha256: criteriaSha256(),
-    runs: jevRuns,
-    corpusSize: corpus.length,
-    includeNouls,
-    pricing: {
-      jevUsdPerInputToken: JEV_USD_PER_INPUT_TOKEN,
-      jevSource: 'https://docs.typesafe.ai/models',
-      anthropicUsdPerMTok: ANTHROPIC_PRICING_USD_PER_MTOK[baselineModel] ?? null,
-      anthropicSource: 'https://platform.claude.com/docs/en/about-claude/pricing',
-    },
-    baseline: {
-      enabled: baselineEnabled,
-      model: baselineEnabled ? baselineModel : null,
-      runs: baselineEnabled ? baselineRuns : 0,
-      concurrency: 1,
-    },
-  },
-  jev: {
-    runs: jevRunRows.map((rows, i) => ({ run: i + 1, rows })),
-    summary: {
-      agreementPerRun,
-      derivedAgreementPerRun,
-      identicalChoices,
-      identicalProbabilities,
-      maxProbDelta,
-      changedRows,
-      latencyMs: jevLatency,
-      totalInputTokens: totalJevInput,
-      totalOutputTokens: totalJevOutput,
-      estimatedCostUsdPer1000Reports: jevCostPer1000,
-      confusionLastRun,
-      publishedBaselineMisses: PUBLISHED_BASELINE_MISSES.map((id) => lastRun.find((r) => r.id === id) ?? null),
-      confidenceDial: dial,
-      adversarial: adversarialRows,
-    },
-  },
-  ...(baselineEnabled
-    ? {
-        baseline: {
-          runs: baselineRunRows.map((rows, i) => ({ run: i + 1, rows })),
-          summary: baselineSummary,
-        },
-      }
-    : {}),
-};
-
-await Bun.write(outPath, JSON.stringify(artifact, null, 2) + '\n');
+await writeArtifact();
 console.log(`\nArtifact written to ${outPath}`);
 
 const errored = allJevRows.some((r) => r.error) || baselineRunRows.flat().some((r) => r.error);

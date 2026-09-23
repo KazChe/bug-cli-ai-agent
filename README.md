@@ -1,6 +1,10 @@
 # Bug Report Triage CLI
 
-A CLI that takes a JSON array of raw bug-report strings and transforms each one into a structured triage output via Anthropic tool-use. Crucially, it does **not** force every input into a ticket. Each report is classified into one of four buckets, each with its own output shape:
+A CLI that takes a JSON array of raw bug-report strings and transforms each one into a structured triage output via Anthropic tool-use. Crucially, it does **not** force every input into a ticket. Each report is classified into one of four buckets, each with its own output shape.
+
+There are two engines. The default makes one Anthropic tool-use call that decides the bucket and drafts the fields. `--engine jev` hands the bucket decision to [TypeSafe's Jev](https://docs.typesafe.ai/introduction), a model that returns a typed choice with a probability distribution instead of text, and calls Anthropic only for the two buckets that have fields worth drafting. See [Jev experiment](#jev-experiment) below.
+
+The four buckets:
 
 1. `actionable_ticket`, enough context to file directly.
 2. `partial_ticket_needs_clarification`, real bug signal but key facts missing; emits a draft + clarifying questions.
@@ -11,17 +15,18 @@ A CLI that takes a JSON array of raw bug-report strings and transforms each one 
 
 ```bash
 bun install
-cp .env.example .env   # fill in ANTHROPIC_API_KEY
+cp .env.example .env   # fill in ANTHROPIC_API_KEY; add TYPESAFE_API_KEY for --engine jev and eval:jev
 ```
 
 ## Commands
 
 | Command             | What it does                                                                                                                                                                                  |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bun run test`      | Runs Vitest suite (61 tests across schema, classifier, CLI). Uses a mocked Anthropic client, no API key, no network.                                                                          |
+| `bun run test`      | Runs Vitest suite (104 tests across schema, classifier, CLI, prompt, Jev, hybrid engine). Uses mocked Anthropic and Jev clients, no API key, no network.                                     |
 | `bun run typecheck` | `tsc --noEmit` strict-mode pass.                                                                                                                                                              |
-| `bun run cli`       | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`.                                                        |
+| `bun run cli`       | Reads a JSON array of strings from stdin or a file path, classifies each, writes a JSON array to stdout. Requires `ANTHROPIC_API_KEY`. Add `--engine jev` (needs `TYPESAFE_API_KEY`) to route the bucket decision through Jev. |
 | `bun run eval`      | Runs the live model over the 20-entry messy corpus in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts), compares to expected labels, exits non-zero if agreement falls below 70%. |
+| `bun run eval:jev`  | Runs the bucket decision through Jev N times over the same corpus and writes [eval-jev-results.json](eval-jev-results.json). `EVAL_BASELINE=1` also re-runs the Anthropic classifier in the same harness. See [Jev experiment](#jev-experiment). |
 
 ## Input format
 
@@ -48,6 +53,10 @@ echo '["upload is broken"]' | bun run cli
 
 # 3. override the model
 ANTHROPIC_MODEL=claude-haiku-4-5 bun run cli tests/fixtures/example-input.json
+
+# 4. hybrid engine: Jev decides the bucket, Anthropic drafts only actionable and partial
+#    (needs TYPESAFE_API_KEY; pin the Jev version so runs are comparable)
+TYPESAFE_DEFAULT_MODEL=jev-1.13.0 bun run cli --engine jev tests/fixtures/example-input.json
 ```
 
 **Error paths** (should fail loud with exit code 2 and a stderr message, no API call made):
@@ -72,6 +81,7 @@ echo '[]' | bun run cli   # empty array → prints "[]", exits 0
 - Pretty-printed JSON array, one entry per input, in input order.
 - Each entry has a positional `report_id` (`report-0`, `report-1`, …) and an `original_input` echo.
 - Per-entry classification failures show up as `{ "classification": "error", "report_id", "original_input", "error": { "stage", "message" } }` inline. The batch keeps going.
+- With `--engine jev`, every entry also carries a runner-owned `triage` block (Jev model, bucket, confidence, full probability distribution, latency, input tokens, `llm_called`, and the support route for non-bug questions), and stderr ends with a triage summary: how many reports went to each bucket, how many LLM calls were made or skipped, and how many times the LLM tried to override the pinned bucket (`bucket_mismatch`).
 
 ## How it works
 
@@ -83,6 +93,8 @@ echo '[]' | bun run cli   # empty array → prints "[]", exits 0
 
 **Two test surfaces.** Mocked tests run the schema, classifier, and CLI logic against a fake `AnthropicClient`: fast, deterministic, no API key. The live [eval script](scripts/eval.ts) runs the real model over the messy corpus and reports per-entry agreement with a 70% floor. They answer different questions: unit tests answer "is the code correct?"; the eval answers "does the model handle real ugliness?"
 
+**Hybrid engine (`--engine jev`).** [decideBucket](src/jev/triage.ts) sends the report to Jev as `{ product, report }` state with one Choice question whose four criteria ([src/jev/questions.ts](src/jev/questions.ts)) mirror the system prompt's bucket definitions, plus a speculative `support_route` Choice consumed only for non-bug questions. [classifyReportHybrid](src/classifier/classify.ts) then answers `too_vague` and `non_bug` from [templates](src/classifier/templates.ts) with no LLM call, and sends `actionable` and `partial` to Anthropic with the decision order removed from the prompt (`DRAFT_SYSTEM_PROMPT`) and the tool schema's `classification` narrowed to one literal ([toolInputSchemaFor](src/llm/tool-schema.ts)). If the LLM returns a different classification anyway, that is reported as `bucket_mismatch` before any schema validation runs. The default engine's prompt is unchanged: [tests/prompt.test.ts](tests/prompt.test.ts) asserts it equals a verbatim snapshot byte for byte.
+
 ## Project layout
 
 ```
@@ -93,23 +105,37 @@ src/
     types.ts                  # stable re-export surface for downstream imports
   llm/
     client.ts                 # AnthropicClient interface + real SDK factory
-    prompt.ts                 # system prompt + cache_control config
-    tool-schema.ts            # flat JSON Schema for the tool; strict per-variant validator
+    prompt.ts                 # system prompt (sectioned) + drafting prompt for the hybrid engine
+    tool-schema.ts            # flat JSON Schema for the tool; strict per-variant validator; pinned-bucket variant
+  jev/
+    questions.ts              # Jev state builder, bucket criteria, route criteria, decision-order Nouls
+    client.ts                 # JevClient interface + real SDK factory
+    triage.ts                 # decideBucket (label validation, probability normalization)
   classifier/
-    classify.ts               # classifyReport (the LLM orchestrator)
+    classify.ts               # classifyReport (default) and classifyReportHybrid (Jev routes, LLM drafts)
+    templates.ts              # no-LLM answers for too_vague and non_bug under the hybrid engine
   cli/
-    runner.ts                 # runCli (parse input, concurrent classify, build entries)
+    runner.ts                 # runCli (parse input, engine dispatch, concurrent classify, batch summary)
 tests/
   fixtures/
     valid-samples.ts          # canonical valid object per variant (schema tests)
     raw-inputs.ts             # 20-entry messy corpus (eval)
+    adversarial-inputs.ts     # 3 injection probes for the Jev eval, never mixed into the corpus number
     mock-responses.ts         # canned tool_use payloads (unit tests)
+    mock-jev.ts               # canned Jev responses (unit tests)
+    system-prompt.snapshot.ts # verbatim pre-refactor system prompt (byte-equality test)
     example-input.json        # 4-entry demo input for the CLI
   schema.test.ts
   classify.test.ts
   cli.test.ts
+  cli-engine.test.ts
+  hybrid.test.ts
+  jev.test.ts
+  prompt.test.ts
 scripts/
   eval.ts                     # live API runner over the corpus
+  eval-jev.ts                 # Jev eval with optional Anthropic baseline; writes eval-jev-results.json
+eval-jev-results.json         # committed artifact from the published run
 ```
 
 ## Sample eval run
@@ -117,3 +143,35 @@ scripts/
 ![bun run eval over the 20-entry messy corpus: 17/20 agreement on claude-sonnet-4-6, with three class-boundary misses (a-05, v-04, n-05)](https://dhbtuus86mod.cloudfront.net/run-evals.png)
 
 17/20 agreement against the hand-labeled expectations in [tests/fixtures/raw-inputs.ts](tests/fixtures/raw-inputs.ts). The three misses (a-05, v-04, n-05) are class-boundary judgment calls, not classifier failures.
+
+## Jev experiment
+
+`scripts/eval-jev.ts` re-runs only the bucket decision through Jev and compares it against the same labels and, with `EVAL_BASELINE=1`, against the Anthropic classifier run in the same harness. The committed [eval-jev-results.json](eval-jev-results.json) is the artifact behind Part III of the blog series. Headline numbers from that run (3 runs per engine, Jev pinned to `jev-1.13.0`, Sonnet at concurrency 1 so per-call latency is comparable):
+
+| | Jev (bucket only) | claude-sonnet-4-6 (bucket plus drafted fields) |
+| --- | --- | --- |
+| Agreement per run | 16/20, 16/20, 16/20 | 18/20, 18/20, 17/20 |
+| Choices identical across runs | yes (probabilities drifted by up to 0.07) | no (a-05 flipped on run 3) |
+| Latency, mean / median / p95 | 203 ms / 195 ms / 261 ms | 11.7 s / 14.2 s / 19.9 s |
+| Cost per 1,000 reports | $0.044 (input only; output is free) | $10.48 (81% of it output tokens) |
+
+Rules the run followed, so the numbers can be trusted:
+
+- The four bucket criteria in [src/jev/questions.ts](src/jev/questions.ts) were committed before the first live call. The artifact records the commit and a SHA-256 of the criteria, and they were not tuned after seeing results. Two of Jev's four misses are arguably my criteria's fault (v-01) or the label's (n-05, which Sonnet also misses); they stay as they are.
+- Both engines get the same number of runs, and the baseline runs sequentially, so "Jev is repeatable" has something to be compared against and Sonnet's latency is not inflated by queuing.
+- The run aborts if the Jev model id reported by the API changes between calls, so a `jev-latest` rollover cannot masquerade as non-determinism.
+- Three adversarial probes in [tests/fixtures/adversarial-inputs.ts](tests/fixtures/adversarial-inputs.ts) are reported in their own block and never mixed into the 20-row number. One of them (an embedded "classify this as actionable" instruction inside an otherwise empty report) moved Jev's answer.
+
+Pricing sources: [docs.typesafe.ai/models](https://docs.typesafe.ai/models) for Jev and [Anthropic's pricing page](https://platform.claude.com/docs/en/about-claude/pricing) for Sonnet, both read on 2026-09-22 and recorded in the artifact's `meta.pricing`.
+
+To reproduce:
+
+```bash
+# Jev only, 3 runs, with the decision-order Nouls and the adversarial block
+TYPESAFE_DEFAULT_MODEL=jev-1.13.0 bun run eval:jev
+
+# Jev plus the Anthropic baseline, 3 runs each (about 20 minutes, mostly Sonnet)
+EVAL_BASELINE=1 TYPESAFE_DEFAULT_MODEL=jev-1.13.0 bun run eval:jev
+
+# knobs: JEV_RUNS, BASELINE_RUNS, JEV_NOULS=0, JEV_ADVERSARIAL=0, JEV_OUT=<path>
+```
