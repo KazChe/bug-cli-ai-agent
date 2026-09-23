@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.98.0",
+    "@typesafe-ai/sdk": "^0.6.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {
