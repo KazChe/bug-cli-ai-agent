@@ -3,6 +3,7 @@ import { LLMOutputSchema, llmToolInputJSONSchema } from '../llm/tool-schema';
 import { SYSTEM_BLOCKS } from '../llm/prompt';
 import {
   type AnthropicClient,
+  type MessagesUsage,
   type ToolUseBlock,
   DEFAULT_MODEL,
   DEFAULT_MAX_TOKENS,
@@ -11,6 +12,14 @@ import {
 export interface ClassifyOptions {
   model?: string;
   maxTokens?: number;
+}
+
+/** A classified report plus the call metadata the eval scripts need. */
+export interface ClassifyResult {
+  report: ParsedReport;
+  /** Absent when the client did not report usage (mocked clients). */
+  usage?: MessagesUsage;
+  latencyMs: number;
 }
 
 export type ClassifyErrorStage =
@@ -40,6 +49,17 @@ export async function classifyReport(
   client: AnthropicClient,
   options: ClassifyOptions = {},
 ): Promise<ParsedReport> {
+  const result = await classifyReportWithMeta(reportId, rawInput, client, options);
+  return result.report;
+}
+
+export async function classifyReportWithMeta(
+  reportId: string,
+  rawInput: string,
+  client: AnthropicClient,
+  options: ClassifyOptions = {},
+): Promise<ClassifyResult> {
+  const started = performance.now();
   const response = await client.createMessage({
     model: options.model ?? DEFAULT_MODEL,
     max_tokens: options.maxTokens ?? DEFAULT_MAX_TOKENS,
@@ -95,5 +115,9 @@ export async function classifyReport(
       'final_schema',
     );
   }
-  return finalParsed.data;
+  return {
+    report: finalParsed.data,
+    ...(response.usage ? { usage: response.usage } : {}),
+    latencyMs: performance.now() - started,
+  };
 }

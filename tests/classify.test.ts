@@ -14,6 +14,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   classifyReport,
+  classifyReportWithMeta,
   ClassifyError,
 } from '../src/classifier/classify';
 import type {
@@ -141,6 +142,31 @@ describe('classifyReport — protocol failures', () => {
     await expect(classifyReport('r', 'in', client)).rejects.toMatchObject({
       stage: 'wrong_tool_name',
     });
+  });
+});
+
+describe('classifyReportWithMeta', () => {
+  it('passes usage through and measures latency', async () => {
+    const client = clientReturning({
+      ...mockResponseFor(cannedActionable),
+      usage: {
+        input_tokens: 1200,
+        output_tokens: 300,
+        cache_read_input_tokens: 900,
+        cache_creation_input_tokens: null,
+      },
+    });
+    const out = await classifyReportWithMeta('r-1', 'raw', client);
+    expect(out.report.classification).toBe('actionable_ticket');
+    expect(out.usage?.input_tokens).toBe(1200);
+    expect(out.usage?.cache_read_input_tokens).toBe(900);
+    expect(out.latencyMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it('omits usage when the client does not report it', async () => {
+    const client = clientReturning(mockResponseFor(cannedActionable));
+    const out = await classifyReportWithMeta('r-1', 'raw', client);
+    expect(out).not.toHaveProperty('usage');
   });
 });
 

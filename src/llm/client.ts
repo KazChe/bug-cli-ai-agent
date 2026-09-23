@@ -19,10 +19,21 @@ export interface TextBlock {
 
 export type ResponseBlock = ToolUseBlock | TextBlock;
 
+// Token accounting as the Messages API reports it. Optional because mocked
+// responses in tests do not always carry it. Cache fields are null when the
+// request did not touch the prompt cache.
+export interface MessagesUsage {
+  input_tokens: number;
+  output_tokens: number;
+  cache_creation_input_tokens?: number | null;
+  cache_read_input_tokens?: number | null;
+}
+
 export interface MessagesResponse {
   id: string;
   stop_reason: 'tool_use' | 'end_turn' | 'max_tokens' | 'stop_sequence' | string;
   content: ResponseBlock[];
+  usage?: MessagesUsage;
 }
 
 export interface MessagesCreateParams {

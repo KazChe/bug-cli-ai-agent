@@ -8,7 +8,8 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "cli": "bun run src/index.ts",
-    "eval": "bun run scripts/eval.ts"
+    "eval": "bun run scripts/eval.ts",
+    "eval:jev": "bun run scripts/eval-jev.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.98.0",
