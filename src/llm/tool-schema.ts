@@ -10,7 +10,9 @@ import {
 // Omitting them from the per-variant schemas reduces hallucination surface and keeps
 // the runner as the source of truth. The final ParsedReportSchema validation in
 // classify.ts re-attaches them and asserts the full contract.
-const OMIT = { original_input: true, report_id: true } as const;
+// triage is runner-owned for the same reason: it records the Jev decision that
+// happened before the LLM call, so the LLM must not be able to write it.
+const OMIT = { original_input: true, report_id: true, triage: true } as const;
 
 const ActionableForLLM = ActionableTicketSchema.omit(OMIT).strict();
 const PartialForLLM = PartialTicketSchema.omit(OMIT).strict();
@@ -86,7 +88,28 @@ const FlatLLMSchema = z.object({
   reasoning: z.string().min(1).optional(),
 });
 
-export const llmToolInputJSONSchema = z.toJSONSchema(FlatLLMSchema, {
-  target: 'draft-2020-12',
-  unrepresentable: 'throw',
-});
+const toJSONSchema = (schema: z.ZodType) =>
+  z.toJSONSchema(schema, {
+    target: 'draft-2020-12',
+    unrepresentable: 'throw',
+  });
+
+export const llmToolInputJSONSchema = toJSONSchema(FlatLLMSchema);
+
+/**
+ * The same flat tool schema with `classification` narrowed to one literal.
+ *
+ * Used by the hybrid engine after Jev has already picked the bucket. Pinning
+ * the bucket in the schema, rather than only asking for it in the prompt,
+ * moves the constraint to the layer that is validated. Note that Anthropic's
+ * tool use treats input_schema as a strong hint rather than a hard guarantee,
+ * so classify.ts still checks the returned classification against the pinned
+ * bucket and reports a mismatch as its own error stage.
+ */
+export function toolInputSchemaFor(
+  bucket: z.infer<typeof ClassificationLiteral>,
+): ReturnType<typeof toJSONSchema> {
+  return toJSONSchema(
+    FlatLLMSchema.extend({ classification: z.literal(bucket) }),
+  );
+}

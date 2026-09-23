@@ -26,9 +26,44 @@ const SupportRoute = z.enum([
   'other',
 ]);
 
+const Classification = z.enum([
+  'actionable_ticket',
+  'partial_ticket_needs_clarification',
+  'too_vague_request_more_info',
+  'non_bug_support_question',
+]);
+
+const unitInterval = z.number().min(0).max(1);
+
+// Runner-owned, like report_id and original_input: attached after the bucket
+// decision when the CLI runs with --engine jev. Never emitted by the LLM (the
+// tool schema omits it). Optional so the default engine's output is unchanged.
+export const TriageSchema = z
+  .object({
+    engine: z.literal('jev'),
+    model: z.string().min(1),
+    bucket: Classification,
+    confidence: unitInterval,
+    probabilities: z.record(Classification, unitInterval),
+    latency_ms: z.number().nonnegative(),
+    input_tokens: z.number().int().nonnegative(),
+    /** False when the bucket was answered from a template with no LLM call. */
+    llm_called: z.boolean(),
+    route: z
+      .object({
+        choice: SupportRoute,
+        confidence: unitInterval,
+        probabilities: z.record(SupportRoute, unitInterval),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict();
+
 const baseFields = {
   original_input: z.string().min(1),
   report_id: z.string().min(1),
+  triage: TriageSchema.optional(),
 };
 
 const actionableFields = {
@@ -88,6 +123,7 @@ export const ParsedReportSchema = z.discriminatedUnion('classification', [
   NonBugSupportSchema,
 ]);
 
+export type Triage = z.infer<typeof TriageSchema>;
 export type ActionableTicket = z.infer<typeof ActionableTicketSchema>;
 export type PartialTicket = z.infer<typeof PartialTicketSchema>;
 export type TooVague = z.infer<typeof TooVagueSchema>;
